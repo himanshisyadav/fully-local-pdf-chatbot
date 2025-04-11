@@ -39,15 +39,15 @@ const modelListItems: Record<ModelProvider, React.JSX.Element> = {
       <li>
         ⚙️
         <span className="ml-2">
-          The default LLM is <code>Phi-3.5</code> run using <a href="https://webllm.mlc.ai/">WebLLM</a>.
-          The first time you start a chat, the app will automatically download the weights and cache them in your browser.
-        </span>
-      </li>
-      <li>
-        🏋️
-        <span className="ml-2">
-          These weights are several GB in size, so it may take some time. Make sure you have a good internet connection!
-        </span>
+        The default LLM is <code>Mistral-7B</code> run locally by Ollama. You&apos;ll need to install <a target="_blank" href="https://ollama.ai">the Ollama desktop app</a> and run the following commands to give this site access to the locally running model:
+        <br/>
+        <pre className="inline-flex px-2 py-1 my-2 rounded">$ OLLAMA_ORIGINS=https://himi-mindbytes-demo-2025.vercel.app OLLAMA_HOST=127.0.0.1:11435 ollama serve
+        </pre>
+        <br/>
+        Then, in another window:
+        <br/>
+        <pre className="inline-flex px-2 py-1 my-2 rounded">$ OLLAMA_HOST=127.0.0.1:11435 ollama pull mistral</pre>
+      </span>
       </li>
     </>
   ),
@@ -308,6 +308,12 @@ export function ChatWindow(props: {
               Yes, it&apos;s another LLM-powered chat over documents implementation... but this one is entirely {modelProvider === "ollama_mac" ? "local" : "local in your browser"}!
             </span>
           </li>
+          <li className="text-l">
+            👇
+            <span className="ml-2">
+              Try embedding a PDF below, then asking questions! You can even turn off your WiFi{modelProvider !== "ollama_mac" && " after the initial model download"}.
+            </span>
+          </li>
           <li className="hidden text-l md:block">
             🌐
             <span className="ml-2">
@@ -339,12 +345,6 @@ export function ChatWindow(props: {
                 from the GitHub repo
               </a>
               !
-            </span>
-          </li>
-          <li className="text-l">
-            👇
-            <span className="ml-2">
-              Try embedding a PDF below, then asking questions! You can even turn off your WiFi{modelProvider !== "ollama_mac" && " after the initial model download"}.
             </span>
           </li>
         </ul>
