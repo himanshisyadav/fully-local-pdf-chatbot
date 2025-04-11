@@ -8,9 +8,11 @@ import {
   StateGraph,
 } from "@langchain/langgraph/web";
 
+import { OllamaEmbeddings } from "@langchain/ollama";
+
 import { WebPDFLoader } from "@langchain/community/document_loaders/web/pdf";
 
-import { HuggingFaceTransformersEmbeddings } from "@langchain/community/embeddings/hf_transformers";
+import { HuggingFaceTransformersEmbeddings } from "@langchain/community/embeddings/huggingface_transformers";
 import { VoyVectorStore } from "@langchain/community/vectorstores/voy";
 import { ChatPromptTemplate, PromptTemplate } from "@langchain/core/prompts";
 import { type BaseMessage } from "@langchain/core/messages";
@@ -28,11 +30,17 @@ import { Document } from "@langchain/core/documents";
 import { RunnableConfig } from "@langchain/core/runnables";
 import { BaseLLM } from "@langchain/core/language_models/llms";
 
-const embeddings = new HuggingFaceTransformersEmbeddings({
-  modelName: "Xenova/all-MiniLM-L6-v2",
-  // Can use "nomic-ai/nomic-embed-text-v1" for more powerful but slower embeddings
-  // modelName: "nomic-ai/nomic-embed-text-v1",
-});
+
+// const embeddings = new HuggingFaceTransformersEmbeddings({
+//   model: "Xenova/all-MiniLM-L6-v2",
+//   // Can use "nomic-ai/nomic-embed-text-v1" for more powerful but slower embeddings
+//   // modelName: "nomic-ai/nomic-embed-text-v1",
+// });
+
+const embeddings = new OllamaEmbeddings({
+  model: "mistral", // default value
+  baseUrl: "http://localhost:11434/", // default value
+  });
 
 const voyClient = new VoyClient();
 const vectorstore = new VoyVectorStore(voyClient, embeddings);
@@ -88,7 +96,7 @@ const generateRAGResponse = async (
     devModeTracer,
   }: {
     model: LanguageModelLike;
-    modelProvider: "ollama" | "webllm" | "chrome_ai";
+    modelProvider: "ollama_mac" | "midway3_gpu";
     devModeTracer?: LangChainTracer;
   },
 ) => {
@@ -104,7 +112,7 @@ const generateRAGResponse = async (
   ) => {
     const originalQuery = state.messages.at(-1)?.content as string;
     let formattedPrompt;
-    if (modelProvider === "ollama") {
+    if (modelProvider === "ollama_mac") {
       const rephrasePrompt = ChatPromptTemplate.fromMessages([
         ["placeholder", "{messages}"],
         [
@@ -119,7 +127,7 @@ const generateRAGResponse = async (
         },
         config,
       );
-    } else if (modelProvider === "webllm") {
+    } else if (modelProvider === "midway3_gpu") {
       const rephrasePrompt = ChatPromptTemplate.fromMessages([
         ["placeholder", "{messages}"],
         [
@@ -188,7 +196,7 @@ Given the above conversation, rephrase the following question into a standalone,
         return `<doc>\n${sourceDoc.pageContent}\n</doc>`;
       })
       .join("\n\n");
-    if (modelProvider === "ollama") {
+    if (modelProvider === "ollama_mac") {
       responseChainPrompt = ChatPromptTemplate.fromMessages<{
         context: string;
         messages: BaseMessage[];
@@ -203,7 +211,7 @@ Given the above conversation, rephrase the following question into a standalone,
         },
         config,
       );
-    } else if (modelProvider === "webllm") {
+    } else if (modelProvider === "midway3_gpu") {
       responseChainPrompt = ChatPromptTemplate.fromMessages<{
         context: string;
         messages: BaseMessage[];
@@ -338,7 +346,7 @@ self.addEventListener("message", async (event: { data: any }) => {
     const modelProvider = event.data.modelProvider;
     const modelConfig = event.data.modelConfig;
     let model: BaseChatModel | BaseLLM | LanguageModelLike;
-    if (modelProvider === "webllm") {
+    if (modelProvider === "midway3_gpu") {
       const webllmModel = new ChatWebLLM(modelConfig);
       await webllmModel.initialize((event) =>
         self.postMessage({ type: "init_progress", data: event }),
@@ -362,13 +370,14 @@ self.addEventListener("message", async (event: { data: any }) => {
       self.postMessage({
         type: "error",
         error:
-          event.data.modelProvider === "ollama"
+          event.data.modelProvider === "ollama_mac"
             ? `${e.message}. Make sure you are running Ollama.`
             : `${e.message}. Make sure your browser supports WebLLM/WebGPU.`,
       });
       throw e;
     }
   }
+
 
   self.postMessage({
     type: "complete",

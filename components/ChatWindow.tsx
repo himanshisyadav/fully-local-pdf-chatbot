@@ -11,22 +11,21 @@ import { ChatMessageBubble } from '@/components/ChatMessageBubble';
 import { ChatWindowMessage } from '@/schema/ChatWindowMessage';
 import { MobileWarningOverlay } from './MobileWarningOverlay';
 
-type ModelProvider = "ollama" | "webllm" | "chrome_ai";
+type ModelProvider = "ollama_mac" | "midway3_gpu";
 
 const titleTexts: Record<ModelProvider, string> = {
-  ollama: "Fully Local Chat Over Documents",
-  webllm: "Fully In-Browser Chat Over Documents",
-  chrome_ai: "Chrome-Native Chat Over Documents",
+  ollama_mac: "Fully Local Chat Over Documents on Mac CPU",
+  midway3_gpu: "Fully Local Chat Over Documents on Midway3 GPUs",
 };
 
 const modelListItems: Record<ModelProvider, React.JSX.Element> = {
-  ollama: (
+  ollama_mac: (
     <li>
       ⚙️
       <span className="ml-2">
         The default LLM is <code>Mistral-7B</code> run locally by Ollama. You&apos;ll need to install <a target="_blank" href="https://ollama.ai">the Ollama desktop app</a> and run the following commands to give this site access to the locally running model:
         <br/>
-        <pre className="inline-flex px-2 py-1 my-2 rounded">$ OLLAMA_ORIGINS=https://webml-demo.vercel.app OLLAMA_HOST=127.0.0.1:11435 ollama serve
+        <pre className="inline-flex px-2 py-1 my-2 rounded">$ OLLAMA_ORIGINS=https://himi-mindbytes-demo-2025.vercel.app OLLAMA_HOST=127.0.0.1:11435 ollama serve
         </pre>
         <br/>
         Then, in another window:
@@ -35,7 +34,7 @@ const modelListItems: Record<ModelProvider, React.JSX.Element> = {
       </span>
     </li>
   ),
-  webllm: (
+  midway3_gpu: (
     <>
       <li>
         ⚙️
@@ -52,28 +51,11 @@ const modelListItems: Record<ModelProvider, React.JSX.Element> = {
       </li>
     </>
   ),
-  chrome_ai: (
-    <>
-      <li>
-        ♊
-        <span className="ml-2">
-          It uses the experimental preview of <code>Chrome&apos;s built-in Gemini Nano</code> model. You will need access to the program to use this mode.
-        </span>
-      </li>
-      <li>
-        🚧
-        <span className="ml-2">
-          Note that the built-in Gemini Nano model is experimental and is not chat tuned, so results may vary!
-        </span>
-      </li>
-    </>
-  ),
 };
 
 const emojis: Record<ModelProvider, React.JSX.Element> = {
-  ollama: <span>🦙</span>,
-  webllm: <span>🌐</span>,
-  chrome_ai: <span>♊</span>
+  ollama_mac: <span>🦙</span>,
+  midway3_gpu: <span>🌐</span>
 }
 
 export function ChatWindow(props: {
@@ -81,10 +63,10 @@ export function ChatWindow(props: {
 }) {
   const searchParams = useSearchParams()
   const presetProvider = searchParams.get("provider");
-  const validModelProviders: ModelProvider[] = ["ollama", "webllm", "chrome_ai"];
+  const validModelProviders: ModelProvider[] = ["ollama_mac", "midway3_gpu"];
   const initialModelProvider: ModelProvider = validModelProviders.includes(presetProvider as ModelProvider)
     ? (presetProvider as ModelProvider)
-    : "ollama";
+    : "ollama_mac";
 
   const { placeholder } = props;
   const [messages, setMessages] = useState<ChatWindowMessage[]>([]);
@@ -110,19 +92,18 @@ export function ChatWindow(props: {
           return;
         }
         const modelConfigs: Record<ModelProvider, Record<string, any>> = {
-          ollama: {
+          ollama_mac: {
             baseUrl: "http://localhost:11435",
             temperature: 0.3,
             model: "mistral",
           },
-          webllm: {
+          midway3_gpu: {
             // See https://github.com/mlc-ai/web-llm/blob/main/src/config.ts for a list of available models
             model: "Phi-3.5-mini-instruct-q4f16_1-MLC",
             chatOptions: {
               temperature: 0.1,
             },
           },
-          chrome_ai: {},
         };
         const payload: Record<string, any> = {
           messages,
@@ -291,47 +272,31 @@ export function ChatWindow(props: {
                 name="model_provider"
                 id="ollama"
                 className="sr-only peer"
-                checked={modelProvider === "ollama"}
+                checked={modelProvider === "ollama_mac"}
                 onChange={() => {
                   const params = new URLSearchParams(window.location.search);
                   params.set("provider", "ollama");
                   history.pushState({}, "",  "/?" + params.toString());
-                  setModelProvider("ollama");
+                  setModelProvider("ollama_mac");
                 }} />
               <span className="relative inline-flex items-center h-full py-2 pr-2 space-x-2 text-sm pl-2 peer-checked:text-black peer-checked:bg-blue-200">
-                <span>{emojis["ollama"]} Ollama (Mistral)</span>
+                <span>{emojis["ollama_mac"]} Ollama (Mac)</span>
               </span>
             </label>
-            <label htmlFor="webllm" className="cursor-pointer">
+            <label htmlFor="midway3_gpu" className="cursor-pointer">
               <input type="radio"
                 name="model_provider"
-                id="webllm"
+                id="midway3_gpu"
                 className="sr-only peer"
-                checked={modelProvider === "webllm"}
+                checked={modelProvider === "midway3_gpu"}
                 onChange={() => {
                   const params = new URLSearchParams(window.location.search);
-                  params.set("provider", "webllm");
+                  params.set("provider", "midway3_gpu");
                   history.pushState({}, "",  "/?" + params.toString());
-                  setModelProvider("webllm");
+                  setModelProvider("midway3_gpu");
                 }} />
               <span className="relative inline-flex items-center h-full py-2 pr-2 space-x-2 text-sm pl-2 peer-checked:text-black peer-checked:bg-green-200">
-                <span>{emojis["webllm"]} WebLLM (Phi-3.5)</span>
-              </span>
-            </label>
-            <label htmlFor="chrome_ai" className="cursor-pointer">
-              <input type="radio"
-                name="model_provider"
-                id="chrome_ai"
-                className="sr-only peer"
-                checked={modelProvider === "chrome_ai"}
-                onChange={() => {
-                  const params = new URLSearchParams(window.location.search);
-                  params.set("provider", "chrome_ai");
-                  history.pushState({}, "",  "/?" + params.toString());
-                  setModelProvider("chrome_ai");
-                }} />
-              <span className="relative inline-flex items-center h-full py-2 pr-2 space-x-2 text-sm pl-2 peer-checked:text-black peer-checked:bg-indigo-200">
-                <span>{emojis["chrome_ai"]} Chrome AI (Gemini Nano)</span>
+                <span>{emojis["midway3_gpu"]} Ollama (Midway3)</span>
               </span>
             </label>
           </div>
@@ -340,7 +305,7 @@ export function ChatWindow(props: {
           <li className="text-l">
             🏡
             <span className="ml-2">
-              Yes, it&apos;s another LLM-powered chat over documents implementation... but this one is entirely {modelProvider === "ollama" ? "local" : "local in your browser"}!
+              Yes, it&apos;s another LLM-powered chat over documents implementation... but this one is entirely {modelProvider === "ollama_mac" ? "local" : "local in your browser"}!
             </span>
           </li>
           <li className="hidden text-l md:block">
@@ -368,7 +333,7 @@ export function ChatWindow(props: {
               This template is open source - you can see the source code and
               deploy your own version{" "}
               <a
-                href="https://github.com/jacoblee93/fully-local-pdf-chatbot"
+                href="https://github.com/himanshisyadav/fully-local-pdf-chatbot"
                 target="_blank"
               >
                 from the GitHub repo
@@ -379,7 +344,7 @@ export function ChatWindow(props: {
           <li className="text-l">
             👇
             <span className="ml-2">
-              Try embedding a PDF below, then asking questions! You can even turn off your WiFi{modelProvider !== "ollama" && " after the initial model download"}.
+              Try embedding a PDF below, then asking questions! You can even turn off your WiFi{modelProvider !== "ollama_mac" && " after the initial model download"}.
             </span>
           </li>
         </ul>
