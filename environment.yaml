@@ -1,0 +1,23 @@
+name: /project/rcc/hyadav/vercel_ollama
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - _libgcc_mutex=0.1=main
+  - _openmp_mutex=5.1=1_gnu
+  - ca-certificates=2025.2.25=h06a4308_0
+  - esbuild=0.25.2=ha770c72_0
+  - icu=75.1=he02047a_0
+  - libgcc=14.2.0=h767d61c_2
+  - libgcc-ng=14.2.0=h69a702a_2
+  - libgomp=14.2.0=h767d61c_2
+  - libstdcxx=14.2.0=h8f9b012_2
+  - libstdcxx-ng=14.2.0=h4852527_2
+  - libuv=1.50.0=hb9d3cd8_0
+  - libzlib=1.3.1=hb9d3cd8_2
+  - nodejs=22.13.0=hf235a45_0
+  - ollama=0.6.5=cpu_hf157611_
+  - openssl=3.5.0=h7b32b05_0
+  - vercel-cli=41.6.0=ha4bf28d_0
+  - zlib=1.3.1=hb9d3cd8_2
+prefix: /project/rcc/hyadav/vercel_ollama
