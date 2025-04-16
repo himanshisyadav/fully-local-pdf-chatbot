@@ -38,7 +38,7 @@ import { BaseLLM } from "@langchain/core/language_models/llms";
 // });
 
 const embeddings = new OllamaEmbeddings({
-  model: "mistral", // default value
+  model: "all-minilm", // default value
   baseUrl: "http://localhost:11434/", // default value
   });
 
@@ -72,6 +72,8 @@ assistant: `;
 const embedPDF = async (pdfBlob: Blob) => {
   const pdfLoader = new WebPDFLoader(pdfBlob, { parsedItemSeparator: " " });
   const docs = await pdfLoader.load();
+  console.log(docs);
+  docs[0];
 
   const splitter = new RecursiveCharacterTextSplitter({
     chunkSize: 500,
