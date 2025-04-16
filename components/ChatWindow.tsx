@@ -25,12 +25,12 @@ const modelListItems: Record<ModelProvider, React.JSX.Element> = {
       <span className="ml-2">
         The default LLM is <code>Mistral-7B</code> run locally by Ollama. You&apos;ll need to install <a target="_blank" href="https://ollama.ai">the Ollama desktop app</a> and run the following commands to give this site access to the locally running model:
         <br/>
-        <pre className="inline-flex px-2 py-1 my-2 rounded">$ OLLAMA_ORIGINS=https://himi-mindbytes-demo-2025.vercel.app OLLAMA_HOST=127.0.0.1:11435 ollama serve
+        <pre className="inline-flex px-2 py-1 my-2 rounded">$ OLLAMA_ORIGINS=http://localhost:30000 OLLAMA_HOST=127.0.0.1:11434 ollama serve
         </pre>
         <br/>
         Then, in another window:
         <br/>
-        <pre className="inline-flex px-2 py-1 my-2 rounded">$ OLLAMA_HOST=127.0.0.1:11435 ollama pull mistral</pre>
+        <pre className="inline-flex px-2 py-1 my-2 rounded">$ OLLAMA_HOST=127.0.0.1:11434 ollama run mistral</pre>
       </span>
     </li>
   ),
@@ -267,7 +267,7 @@ export function ChatWindow(props: {
         </h1>
         <div className="p-2 my-4 flex items-center justify-center">
           <div className="inline-flex overflow-hidden border border-gray-200 rounded-lg">
-            <label htmlFor="ollama" className="cursor-pointer">
+            <label htmlFor="ollama_mac" className="cursor-pointer">
               <input type="radio"
                 name="model_provider"
                 id="ollama"
@@ -281,22 +281,6 @@ export function ChatWindow(props: {
                 }} />
               <span className="relative inline-flex items-center h-full py-2 pr-2 space-x-2 text-sm pl-2 peer-checked:text-black peer-checked:bg-blue-200">
                 <span>{emojis["ollama_mac"]} Ollama (Mac)</span>
-              </span>
-            </label>
-            <label htmlFor="midway3_gpu" className="cursor-pointer">
-              <input type="radio"
-                name="model_provider"
-                id="midway3_gpu"
-                className="sr-only peer"
-                checked={modelProvider === "midway3_gpu"}
-                onChange={() => {
-                  const params = new URLSearchParams(window.location.search);
-                  params.set("provider", "midway3_gpu");
-                  history.pushState({}, "",  "/?" + params.toString());
-                  setModelProvider("midway3_gpu");
-                }} />
-              <span className="relative inline-flex items-center h-full py-2 pr-2 space-x-2 text-sm pl-2 peer-checked:text-black peer-checked:bg-green-200">
-                <span>{emojis["midway3_gpu"]} Ollama (Midway3)</span>
               </span>
             </label>
           </div>
@@ -324,7 +308,7 @@ export function ChatWindow(props: {
           <li>
             🗺️
             <span className="ml-2">
-              The default embeddings are <pre className="inline-flex px-2 py-1 my-2 rounded">&quot;Xenova/all-MiniLM-L6-v2&quot;</pre>. For higher-quality, slower embeddings, switch to <pre className="inline-flex px-2 py-1 my-2 rounded">nomic-ai/nomic-embed-text-v1</pre> in <pre className="inline-flex px-2 py-1 my-2 rounded">app/worker.ts</pre>.
+              The default embeddings are <pre className="inline-flex px-2 py-1 my-2 rounded">&quot;all-minilm (22 M parameters)&quot;</pre>. For higher-quality, slower embeddings, switch to <a href="https://ollama.com/search?c=embedding">suitable embedding models </a> in <pre className="inline-flex px-2 py-1 my-2 rounded">app/worker.ts</pre>.
             </span>
           </li>
           <li className="hidden text-l md:block">
