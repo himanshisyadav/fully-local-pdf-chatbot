@@ -1,110 +1,49 @@
-# 🏠 Fully Local Chat Over Documents
+# 🏠 Fully Local Chat Over Documents on Midway3 Compute Nodes
 
-Yes, it's another chat over documents implementation... but this one is entirely local!
+It's a Next.js app that reads the content of an uploaded PDF, chunks it, adds it to a vector store, and
+performs RAG, all client-side. You can even run Ollama without internet access which is the case on Midway3 compute nodes. Run local! 
 
-You can run it in three different ways:
+# Steps
 
-- 🦙 Exposing a port to a local LLM running on your desktop via [Ollama](https://ollama.ai).
-- 🌐 Downloading weights into your browser and running via [WebLLM](https://webllm.mlc.ai/).
-- ♊ Joining the early preview program for [Chrome's experimental built-in Gemini Nano model](https://developer.chrome.com/docs/ai/built-in) and using it directly!
+Clone the repository and switch to `midway3-dev` branch.
 
-![](/public/images/demo_builtin_chrome.gif)
+Get on a compute node, ensure to use the `--exclusive` flag to avoid running into resource related issues. 
 
-It's a Next.js app that read the content of an uploaded PDF, chunks it, adds it to a vector store, and
-performs RAG, all client side. You can even turn off your WiFi after the site loads.
+During the following, ensure that you are on the compute node. In each terminal, log into midway3 login node and then compute node that your job is running on. 
 
-You can see a live version at https://webml-demo.vercel.app.
-
-Users can choose one of the below options to run inference:
-
-## 🦙 Ollama
-
-You can run more powerful, general models outside the browser using [Ollama's desktop app](https://ollama.ai). Users will need to download and set up then run the following commands to allow the site access to a locally running Mistral instance:
-
-### Mac/Linux
+Start vercel locally using development mode deployment.
 
 ```bash
-$ OLLAMA_ORIGINS=https://webml-demo.vercel.app OLLAMA_HOST=127.0.0.1:11435 ollama serve
+module load python/anaconda-2023.09
+module load gcc/13.2.0
+source activate /project/rcc/hyadav/vercel_ollama
+npm run dev
 ```
 
-Then, in another terminal window:
+In another terminal, start Ollama
 
 ```bash
-$ OLLAMA_HOST=127.0.0.1:11435 ollama pull mistral
+OLLAMA_ORIGINS=http://localhost:3000 OLLAMA_HOST=127.0.0.1:11434 ollama serve
 ```
 
-### Windows
-
-```cmd
-$ set OLLAMA_ORIGINS=https://webml-demo.vercel.app
-set OLLAMA_HOST=127.0.0.1:11435
-ollama serve
+Open another terminal, run model to be used. Ensure to pull models on the login node which has internet and then export the `OLLAMA_MODELS` environment variable. 
+```bash
+export OLLAMA_MODELS=/project/rcc/hyadav/health_chatbot/ollama_files
+OLLAMA_HOST=127.0.0.1:11434 ollama run mistral
 ```
 
-Then, in another terminal window:
+Following steps from the login node, establish an SSH tunnel to ports `3000` and `11434`, where Vercel and Ollama are running, respectively.
 
-```cmd
-$ set OLLAMA_HOST=127.0.0.1:11435
-ollama pull mistral
+```bash
+ssh -L localhost:<login node port>:localhost:3000 midway3-<compute node number>
 ```
 
-## 🌐 Fully in-browser (WebLLM)
-
-You can run the entire stack your browser via [WebLLM](https://webllm.mlc.ai/). The model used is the small, 3.8B parameter [Phi-3.5](https://huggingface.co/microsoft/Phi-3.5-mini-instruct).
-
-You don't have to leave the window to set this up - just upload a PDF and go!
-
-Note that the first time you start a chat, the app will download and cache the model weights. This download is several GB in size and may take a little while, so make sure you have a good internet connection!
-
-## ♊ Built-in Gemini Nano
-
-You can also use the experimental preview of Chrome's built-in Gemini Nano model. You'll need to join the early preview program to use this mode. Install Chrome while following the directions given in the official guide provided, and you should be all set!
-
-Note that the built-in Gemini Nano model is experimental and is not chat tuned, so results may vary!
-
-## ⚡ Stack
-
-It uses the following:
-
-- [Voy](https://github.com/tantaraio/voy) as the vector store, fully WASM in the browser.
-- [Ollama](https://ollama.ai/), [WebLLM](https://webllm.mlc.ai/), or [Chrome's built-in Gemini Nano](https://developer.chrome.com/docs/ai/built-in) to run an LLM locally and expose it to the web app.
-- [LangGraph.js](https://langchain-ai.github.io/langgraphjs/) and [LangChain.js](https://js.langchain.com) to call the models, perform retrieval, and generally orchestrate all the pieces.
-- [Transformers.js](https://huggingface.co/docs/transformers.js/index) to run open source [Nomic](https://www.nomic.ai/) embeddings in the browser.
-  - For higher-quality embeddings, switch to `"nomic-ai/nomic-embed-text-v1"` in `app/worker.ts`.
-
-While the goal is to run as much of the app as possible directly in the browser, but you can swap in [Ollama embeddings](https://js.langchain.com/docs/modules/data_connection/text_embedding/integrations/ollama) in lieu of Transformers.js as well.
-
-## 🔱 Forking
-
-To run/deploy this yourself, simply fork this repo and install the required dependencies with `yarn`.
-
-There are no required environment variables, but you can optionally set up [LangSmith tracing](https://smith.langchain.com/) while developing locally to help debug the prompts and the chain. Copy the `.env.example` file into a `.env.local` file:
-
-```ini
-# No environment variables required!
-
-# LangSmith tracing from the web worker.
-# WARNING: FOR DEVELOPMENT ONLY. DO NOT DEPLOY A LIVE VERSION WITH THESE
-# VARIABLES SET AS YOU WILL LEAK YOUR LANGCHAIN API KEY.
-NEXT_PUBLIC_LANGCHAIN_TRACING_V2="true"
-NEXT_PUBLIC_LANGCHAIN_API_KEY=
-NEXT_PUBLIC_LANGCHAIN_PROJECT=
+```bash
+ssh -L localhost:<login node port>:localhost:11434 midway3-<compute node number>
 ```
 
-Just make sure you don't set this in production, as your LangChain API key will be public on the frontend!
+Start Thinlinc, ensure you are on the same login node where the SSH tunnels were established. If not, establish tunnels again for the login node that Thinlinc lands on. 
 
-## 📖 Further reading
+Open a web browser of choice and access the app on `localhost:<login node port>`
 
-For a bit more on this topic, check out [my blog post on Ollama](https://ollama.ai/blog/building-llm-powered-web-apps) or [my Google Summit talk on building with LLMs in the browser](https://www.youtube.com/watch?v=-1sdWLr3TbI).
 
-## 🙏 Thank you!
-
-Special thanks to:
-
-- [@dawchihliou](https://twitter.com/dawchihliou) for making Voy
-- [@jmorgan](https://twitter.com/jmorgan) and [@mchiang0610](https://twitter.com/mchiang0610) for making Ollama and for your feedback
-- [@charlie_ruan](https://twitter.com/charlie_ruan) for your incredible work on WebLLM
-- [@xenovacom](https://twitter.com/xenovacom) for making Transformers.js
-- And [@jason_mayes](https://twitter.com/jason_mayes) and [@nfcampos](https://twitter.com/nfcampos) for inspiration and some great conversations.
-
-For more, follow me on Twitter [@Hacubu](https://x.com/hacubu)!
