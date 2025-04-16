@@ -11,6 +11,8 @@ Get on a compute node, ensure to use the `--exclusive` flag to avoid running int
 
 During the following, ensure that you are on the compute node. In each terminal, log into midway3 login node and then compute node that your job is running on. 
 
+Conda `environment.yaml` file available to create own conda environment.
+
 Start vercel locally using development mode deployment.
 
 ```bash
