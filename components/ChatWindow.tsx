@@ -11,26 +11,26 @@ import { ChatMessageBubble } from '@/components/ChatMessageBubble';
 import { ChatWindowMessage } from '@/schema/ChatWindowMessage';
 import { MobileWarningOverlay } from './MobileWarningOverlay';
 
-type ModelProvider = "ollama_mac" | "midway3_gpu";
+type ModelProvider = "ollama_compute" | "midway3_gpu";
 
 const titleTexts: Record<ModelProvider, string> = {
-  ollama_mac: "Fully Local Chat Over Documents on Mac CPU",
+  ollama_compute: "Fully Local Chat Over Documents on RCC Clusters' Compute Nodes",
   midway3_gpu: "Fully Local Chat Over Documents on Midway3 GPUs",
 };
 
 const modelListItems: Record<ModelProvider, React.JSX.Element> = {
-  ollama_mac: (
+  ollama_compute: (
     <li>
       ⚙️
       <span className="ml-2">
         The default LLM is <code>Mistral-7B</code> run locally by Ollama. You&apos;ll need to install <a target="_blank" href="https://ollama.ai">the Ollama desktop app</a> and run the following commands to give this site access to the locally running model:
         <br/>
-        <pre className="inline-flex px-2 py-1 my-2 rounded">$ OLLAMA_ORIGINS=https://himi-mindbytes-demo-2025.vercel.app OLLAMA_HOST=127.0.0.1:11435 ollama serve
+        <pre className="inline-flex px-2 py-1 my-2 rounded">$ OLLAMA_ORIGINS=http://localhost:30000 OLLAMA_HOST=127.0.0.1:11434 ollama serve
         </pre>
         <br/>
         Then, in another window:
         <br/>
-        <pre className="inline-flex px-2 py-1 my-2 rounded">$ OLLAMA_HOST=127.0.0.1:11435 ollama pull mistral</pre>
+        <pre className="inline-flex px-2 py-1 my-2 rounded">$ OLLAMA_HOST=127.0.0.1:11434 ollama run mistral</pre>
       </span>
     </li>
   ),
@@ -54,7 +54,7 @@ const modelListItems: Record<ModelProvider, React.JSX.Element> = {
 };
 
 const emojis: Record<ModelProvider, React.JSX.Element> = {
-  ollama_mac: <span>🦙</span>,
+  ollama_compute: <span>🦙</span>,
   midway3_gpu: <span>🌐</span>
 }
 
@@ -63,10 +63,10 @@ export function ChatWindow(props: {
 }) {
   const searchParams = useSearchParams()
   const presetProvider = searchParams.get("provider");
-  const validModelProviders: ModelProvider[] = ["ollama_mac", "midway3_gpu"];
+  const validModelProviders: ModelProvider[] = ["ollama_compute", "midway3_gpu"];
   const initialModelProvider: ModelProvider = validModelProviders.includes(presetProvider as ModelProvider)
     ? (presetProvider as ModelProvider)
-    : "ollama_mac";
+    : "ollama_compute";
 
   const { placeholder } = props;
   const [messages, setMessages] = useState<ChatWindowMessage[]>([]);
@@ -92,7 +92,7 @@ export function ChatWindow(props: {
           return;
         }
         const modelConfigs: Record<ModelProvider, Record<string, any>> = {
-          ollama_mac: {
+          ollama_compute: {
             baseUrl: "http://localhost:11434",
             temperature: 0.3,
             model: "mistral",
@@ -267,36 +267,20 @@ export function ChatWindow(props: {
         </h1>
         <div className="p-2 my-4 flex items-center justify-center">
           <div className="inline-flex overflow-hidden border border-gray-200 rounded-lg">
-            <label htmlFor="ollama" className="cursor-pointer">
+            <label htmlFor="ollama_compute" className="cursor-pointer">
               <input type="radio"
                 name="model_provider"
                 id="ollama"
                 className="sr-only peer"
-                checked={modelProvider === "ollama_mac"}
+                checked={modelProvider === "ollama_compute"}
                 onChange={() => {
                   const params = new URLSearchParams(window.location.search);
                   params.set("provider", "ollama");
                   history.pushState({}, "",  "/?" + params.toString());
-                  setModelProvider("ollama_mac");
+                  setModelProvider("ollama_compute");
                 }} />
               <span className="relative inline-flex items-center h-full py-2 pr-2 space-x-2 text-sm pl-2 peer-checked:text-black peer-checked:bg-blue-200">
-                <span>{emojis["ollama_mac"]} Ollama (Mac)</span>
-              </span>
-            </label>
-            <label htmlFor="midway3_gpu" className="cursor-pointer">
-              <input type="radio"
-                name="model_provider"
-                id="midway3_gpu"
-                className="sr-only peer"
-                checked={modelProvider === "midway3_gpu"}
-                onChange={() => {
-                  const params = new URLSearchParams(window.location.search);
-                  params.set("provider", "midway3_gpu");
-                  history.pushState({}, "",  "/?" + params.toString());
-                  setModelProvider("midway3_gpu");
-                }} />
-              <span className="relative inline-flex items-center h-full py-2 pr-2 space-x-2 text-sm pl-2 peer-checked:text-black peer-checked:bg-green-200">
-                <span>{emojis["midway3_gpu"]} Ollama (Midway3)</span>
+                <span>{emojis["ollama_compute"]} Ollama (RCC Clusters' Compute Nodes)</span>
               </span>
             </label>
           </div>
@@ -305,13 +289,13 @@ export function ChatWindow(props: {
           <li className="text-l">
             🏡
             <span className="ml-2">
-              Yes, it&apos;s another LLM-powered chat over documents implementation... but this one is entirely {modelProvider === "ollama_mac" ? "local" : "local in your browser"}!
+              Yes, it&apos;s another LLM-powered chat over documents implementation... but this one is entirely {modelProvider === "ollama_compute" ? "local" : "local in your browser"}!
             </span>
           </li>
           <li className="text-l">
             👇
             <span className="ml-2">
-              Try embedding a PDF below, then asking questions! You can even turn off your WiFi{modelProvider !== "ollama_mac" && " after the initial model download"}.
+              Try embedding a PDF below, then asking questions! You can even turn off your WiFi{modelProvider !== "ollama_compute" && " after the initial model download"}.
             </span>
           </li>
           <li className="hidden text-l md:block">
@@ -324,7 +308,7 @@ export function ChatWindow(props: {
           <li>
             🗺️
             <span className="ml-2">
-              The default embeddings are <pre className="inline-flex px-2 py-1 my-2 rounded">&quot;Xenova/all-MiniLM-L6-v2&quot;</pre>. For higher-quality, slower embeddings, switch to <pre className="inline-flex px-2 py-1 my-2 rounded">nomic-ai/nomic-embed-text-v1</pre> in <pre className="inline-flex px-2 py-1 my-2 rounded">app/worker.ts</pre>.
+              The default embeddings are <pre className="inline-flex px-2 py-1 my-2 rounded">&quot;all-minilm (22 M parameters)&quot;</pre>. For higher-quality, slower embeddings, switch to <a href="https://ollama.com/search?c=embedding">suitable embedding models </a> in <pre className="inline-flex px-2 py-1 my-2 rounded">app/worker.ts</pre>.
             </span>
           </li>
           <li className="hidden text-l md:block">

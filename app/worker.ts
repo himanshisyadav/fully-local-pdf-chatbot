@@ -98,7 +98,7 @@ const generateRAGResponse = async (
     devModeTracer,
   }: {
     model: LanguageModelLike;
-    modelProvider: "ollama_mac" | "midway3_gpu";
+    modelProvider: "ollama_compute" | "midway3_gpu";
     devModeTracer?: LangChainTracer;
   },
 ) => {
@@ -114,7 +114,7 @@ const generateRAGResponse = async (
   ) => {
     const originalQuery = state.messages.at(-1)?.content as string;
     let formattedPrompt;
-    if (modelProvider === "ollama_mac") {
+    if (modelProvider === "ollama_compute") {
       const rephrasePrompt = ChatPromptTemplate.fromMessages([
         ["placeholder", "{messages}"],
         [
@@ -198,7 +198,7 @@ Given the above conversation, rephrase the following question into a standalone,
         return `<doc>\n${sourceDoc.pageContent}\n</doc>`;
       })
       .join("\n\n");
-    if (modelProvider === "ollama_mac") {
+    if (modelProvider === "ollama_compute") {
       responseChainPrompt = ChatPromptTemplate.fromMessages<{
         context: string;
         messages: BaseMessage[];
@@ -372,7 +372,7 @@ self.addEventListener("message", async (event: { data: any }) => {
       self.postMessage({
         type: "error",
         error:
-          event.data.modelProvider === "ollama_mac"
+          event.data.modelProvider === "ollama_compute"
             ? `${e.message}. Make sure you are running Ollama.`
             : `${e.message}. Make sure your browser supports WebLLM/WebGPU.`,
       });
