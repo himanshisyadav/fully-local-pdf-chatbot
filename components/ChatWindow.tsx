@@ -93,7 +93,7 @@ export function ChatWindow(props: {
         }
         const modelConfigs: Record<ModelProvider, Record<string, any>> = {
           ollama_mac: {
-            baseUrl: "http://localhost:11435",
+            baseUrl: "http://localhost:11434",
             temperature: 0.3,
             model: "mistral",
           },

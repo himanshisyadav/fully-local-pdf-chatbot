@@ -27,6 +27,7 @@
     "encoding": "^0.1.13",
     "eslint": "8.46.0",
     "eslint-config-next": "13.4.12",
+    "fast-glob": "^3.3.3",
     "langchain": "^0.3.2",
     "langsmith": "latest",
     "next": "13.4.12",
