@@ -181,26 +181,45 @@ export function ChatWindow(props: {
     setIsLoading(true);
     setInput("");
 
+    let startTime: number | null = null;
+
     try {
       const stream = await queryStore(newMessages);
       const reader = stream.getReader();
 
       let chunk = await reader.read();
 
-      const aiResponseMessage: ChatWindowMessage = {
+      const aiResponseMessage: ChatWindowMessage & { responseTime?: number } = {
         content: "",
         role: "assistant" as const,
       };
 
       setMessages([...newMessages, aiResponseMessage]);
+      startTime = performance.now(); // Start timing after the first message is added
 
       while (!chunk.done) {
         aiResponseMessage.content = aiResponseMessage.content + chunk.value;
-        setMessages([...newMessages, aiResponseMessage]);
+        setMessages([...newMessages, { ...aiResponseMessage }]);
+        // setMessages([...newMessages, aiResponseMessage]);
         chunk = await reader.read();
       }
 
       setIsLoading(false);
+      if (startTime !== null) {
+        const endTime = performance.now();
+        const generationTime = (endTime - startTime) / 1000;
+        setMessages((prevMessages) => {
+          const updatedMessages = [...prevMessages];
+          const lastMessageIndex = updatedMessages.length - 1;
+          if (updatedMessages[lastMessageIndex]?.role === "assistant") {
+            updatedMessages[lastMessageIndex] = {
+              ...updatedMessages[lastMessageIndex],
+              responseTime: generationTime,
+            };
+          }
+          return updatedMessages;
+        });
+      }
     } catch (e: any) {
       setMessages(initialMessages);
       setIsLoading(false);

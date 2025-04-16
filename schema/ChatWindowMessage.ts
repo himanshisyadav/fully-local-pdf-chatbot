@@ -3,4 +3,5 @@ export type ChatWindowMessage = {
   role: "user" | "assistant";
   runId?: string;
   traceUrl?: string;
+  responseTime?: number;
 }
