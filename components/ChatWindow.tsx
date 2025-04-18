@@ -300,12 +300,8 @@ export function ChatWindow(props: {
                   history.pushState({}, "",  "/?" + params.toString());
                   setModelProvider("ollama_compute");
                 }} />
-              <span className="relative inline-flex items-center h-full py-2 pr-2 space-x-2 text-sm pl-2 peer-checked:text-black peer-checked:bg-blue-200">
-                <span>{emojis["ollama_compute"]} Ollama (RCC Clusters' Compute Nodes)</span>
-              </span>
-            </label>
               <span className="relative inline-flex items-center h-full py-2 pr-2 space-x-2 text-sm pl-2 ollama">
-                <span>{emojis["ollama_mac"]} Ollama (Mac)</span>
+              <span>{emojis["ollama_compute"]} Ollama (RCC Clusters' Compute Nodes)</span>
               </span>
             </label>
           </div>

@@ -10,11 +10,9 @@ import { Feedback } from 'langsmith';
 
 export function ChatMessageBubble(props: {
   message: ChatWindowMessage & { responseTime?: number };
-  message: ChatWindowMessage & { responseTime?: number };
   aiEmoji?: React.JSX.Element;
   onRemovePressed?: () => void;
 }) {
-  const { role, content, runId, responseTime } = props.message;
   const { role, content, runId, responseTime } = props.message;
 
   const colorClassName =
