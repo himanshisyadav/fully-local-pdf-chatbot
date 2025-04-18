@@ -32,12 +32,12 @@ li {
   padding: 4px;
 }
 
-button[type=submit] {
+button[type=submit].main {
   background-color: #3c763d;
   color: white;
 }
 
-button[type=submit]:hover {
+button[type=submit].main:hover {
   background-color: #4cae4c;
 }
 
