@@ -16,7 +16,7 @@ export function ChatMessageBubble(props: {
   const { role, content, runId, responseTime } = props.message;
 
   const colorClassName =
-    role === "user" ? "bg-sky-600" : "bg-slate-50 text-black";
+    role === "user" ? "bg-[#800000]" : "bg-slate-500 text-white";
   const alignmentClassName =
     role === "user" ? "ml-auto" : "mr-auto";
   const prefix = role === "user" ? "🧑" : props.aiEmoji;
