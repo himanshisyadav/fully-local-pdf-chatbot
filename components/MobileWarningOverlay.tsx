@@ -1,7 +1,7 @@
 export function MobileWarningOverlay() {
   return (
     <div className="sm:hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-90 z-50">
-      <div className="bg-black p-4 rounded shadow-lg text-center">
+      <div className="bg-black p-4 rounded shadow-lg text-center text-white">
         It looks like you are on a mobile device.
         <br />
         <br />
