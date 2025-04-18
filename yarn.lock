@@ -20,41 +20,41 @@ __metadata:
   linkType: hard
 
 "@emnapi/core@npm:^1.4.0":
-  version: 1.4.0
-  resolution: "@emnapi/core@npm:1.4.0"
+  version: 1.4.3
+  resolution: "@emnapi/core@npm:1.4.3"
   dependencies:
-    "@emnapi/wasi-threads": 1.0.1
+    "@emnapi/wasi-threads": 1.0.2
     tslib: ^2.4.0
-  checksum: 6f3ff7ab27e08a465118843e48808f4683ee6e72c409aab553ed2a740a67b8f00771a697c0d1abd46f62dfa65466862d2ff9f886e4f0e4e5342b36d8c350eb36
+  checksum: 1c757d380b3cecec637a2eccfb31b770b995060f695d1e15b29a86e2038909a24152947ef6e4b6586759e6716148ff17f40e51367d1b79c9a3e1b6812537bdf4
   languageName: node
   linkType: hard
 
 "@emnapi/runtime@npm:^1.2.0, @emnapi/runtime@npm:^1.4.0":
-  version: 1.4.0
-  resolution: "@emnapi/runtime@npm:1.4.0"
+  version: 1.4.3
+  resolution: "@emnapi/runtime@npm:1.4.3"
   dependencies:
     tslib: ^2.4.0
-  checksum: 90cca909ceb842e95cb5e16ab64e4c4d8925c6f4ed5527848e53faad8c4e23885e4a001a6099e26a76d099a67758032a9f208b13252176e2b68c860d19f5c1f9
+  checksum: ff2074809638ed878e476ece370c6eae7e6257bf029a581bb7a290488d8f2a08c420a65988c7f03bfc6bb689218f0cd995d2f935bd182150b357fc2341142f4f
   languageName: node
   linkType: hard
 
-"@emnapi/wasi-threads@npm:1.0.1":
-  version: 1.0.1
-  resolution: "@emnapi/wasi-threads@npm:1.0.1"
+"@emnapi/wasi-threads@npm:1.0.2":
+  version: 1.0.2
+  resolution: "@emnapi/wasi-threads@npm:1.0.2"
   dependencies:
     tslib: ^2.4.0
-  checksum: e154880440ff9bfe67b417f30134f0ff6fee28913dbf4a22de2e67dda5bf5b51055647c5d1565281df17ef5dfcc89256546bdf9b8ccfd07e07566617e7ce1498
+  checksum: c289cd3d0e26f11de23429a4abc7f99927917c0871d5a22637cbb75170f2b58d3a42e80d76dea89d054e529f79e35cdc953324819a7f990305d0db2897fa5fab
   languageName: node
   linkType: hard
 
 "@eslint-community/eslint-utils@npm:^4.2.0":
-  version: 4.5.1
-  resolution: "@eslint-community/eslint-utils@npm:4.5.1"
+  version: 4.6.0
+  resolution: "@eslint-community/eslint-utils@npm:4.6.0"
   dependencies:
     eslint-visitor-keys: ^3.4.3
   peerDependencies:
     eslint: ^6.0.0 || ^7.0.0 || >=8.0.0
-  checksum: 853e681fd134e96ce88066b0cfb3ce8b7a87afc9ea207139059f51e302eb9e6de4ab73c9eeb3995407bd6c08f836aade9fce47e91124c254a4eea24a5465c2ac
+  checksum: 1d866093009949a269d5b5d19297fd8ed27c537edb1238f760af09b4ca7fd51d223393c223a664faa79b36dd4568a7d8fa78b2a96c4f90e412f8ce9720b2fd64
   languageName: node
   linkType: hard
 
@@ -776,7 +776,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@langchain/core@npm:latest":
+"@langchain/core@latest":
   version: 0.3.44
   resolution: "@langchain/core@npm:0.3.44"
   dependencies:
@@ -796,14 +796,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@langchain/langgraph-checkpoint@npm:~0.0.16":
-  version: 0.0.16
-  resolution: "@langchain/langgraph-checkpoint@npm:0.0.16"
+"@langchain/langgraph-checkpoint@npm:~0.0.17":
+  version: 0.0.17
+  resolution: "@langchain/langgraph-checkpoint@npm:0.0.17"
   dependencies:
     uuid: ^10.0.0
   peerDependencies:
     "@langchain/core": ">=0.2.31 <0.4.0"
-  checksum: ca0d169256f4b82e050297af536d4e8d24b47cd7ea029925845a3b3ae06eaef1fcca566ad9851a608b46f2fe5ff1de77a66d86fcaa808de26b7c97a9afdc061c
+  checksum: c8dc429e66ff5b0f31037c493c4f8687196f1800d52b48e8ff04829742cd7200af66ce46dee93ff3c0f6b6e6c2af36336f09626a5ce296ec610383a3bd7131ef
   languageName: node
   linkType: hard
 
@@ -828,10 +828,10 @@ __metadata:
   linkType: hard
 
 "@langchain/langgraph@npm:^0.2.16":
-  version: 0.2.63
-  resolution: "@langchain/langgraph@npm:0.2.63"
+  version: 0.2.64
+  resolution: "@langchain/langgraph@npm:0.2.64"
   dependencies:
-    "@langchain/langgraph-checkpoint": ~0.0.16
+    "@langchain/langgraph-checkpoint": ~0.0.17
     "@langchain/langgraph-sdk": ~0.0.32
     uuid: ^10.0.0
     zod: ^3.23.8
@@ -841,7 +841,7 @@ __metadata:
   peerDependenciesMeta:
     zod-to-json-schema:
       optional: true
-  checksum: 0b581d1e49b85a73c7a2bb1e7be45ec41c01e3ea13b7d17a173c80594fde8e368f895396ee95f4fc408b5fbd5016770f965839b8c2e00d9195cac4c1b74affd2
+  checksum: bf90f22a161b23a2aa0d8d71504db2f0c5aaa7f901242efdc8e808195ad97bdbb167cd52201798a56207783036c0b8f295753c0c3199660085d73711f4393590
   languageName: node
   linkType: hard
 
@@ -1183,11 +1183,11 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:*, @types/node@npm:>=13.7.0":
-  version: 22.14.0
-  resolution: "@types/node@npm:22.14.0"
+  version: 22.14.1
+  resolution: "@types/node@npm:22.14.1"
   dependencies:
     undici-types: ~6.21.0
-  checksum: 8bfae1d3c428b122d23750690bdc5b8295a53949823563ec60654a24ece98bde4fc0d2b5f06ddc6def6f01a08dfe62cece7c93e60964b74f736145dad5ee1302
+  checksum: e22363f40ac8290da2bb5261c2b348241fd93b000908cefd3c56575df9d4f6b8d102fc8631275eac7ec4a9e0ac4f38f01c9d8104ebbda76c936aef96fd1e55f3
   languageName: node
   linkType: hard
 
@@ -1224,11 +1224,11 @@ __metadata:
   linkType: hard
 
 "@types/react@npm:*":
-  version: 19.1.1
-  resolution: "@types/react@npm:19.1.1"
+  version: 19.1.2
+  resolution: "@types/react@npm:19.1.2"
   dependencies:
     csstype: ^3.0.2
-  checksum: 1daebda3dfe30944c3322da6ae352697e4a81dc6a64125110f1610fd5b2a98581c2fc7ef8a896d8f91d01d92642a72c941ee283d0a914a04e0a78597642f9242
+  checksum: 5a911a2c84be0c9451bb8a7c75c907af1f52afbb4d51b0d62e7516a9b0b1e63c3c1cdc35b79bfc6e66176c76cfff9d43023a781cd3dc59e2744715ced7d7e7c4
   languageName: node
   linkType: hard
 
@@ -2341,9 +2341,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.5.73":
-  version: 1.5.136
-  resolution: "electron-to-chromium@npm:1.5.136"
-  checksum: 848e40a5f5b1de9dfbd82f3c29a696afa9a3d5372e6a83aef14ee5779e05f5cc055f7381f4bea46be5a991626683543c28fa1844e10e6d313bbe5d4680deef76
+  version: 1.5.137
+  resolution: "electron-to-chromium@npm:1.5.137"
+  checksum: 000803b46f87a52fda756ffcb92b7e8baa1ccd5c2545fde46f35b8f10f9d7e1d0d8681532f8ef2e9ee2e0367c63772554f04966abd8576b3403204fdf684a2b5
   languageName: node
   linkType: hard
 
@@ -2862,7 +2862,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fast-glob@npm:^3.2.12, fast-glob@npm:^3.2.9":
+"fast-glob@npm:^3.2.12, fast-glob@npm:^3.2.9, fast-glob@npm:^3.3.3":
   version: 3.3.3
   resolution: "fast-glob@npm:3.3.3"
   dependencies:
@@ -3094,6 +3094,7 @@ __metadata:
     encoding: ^0.1.13
     eslint: 8.46.0
     eslint-config-next: 13.4.12
+    fast-glob: ^3.3.3
     langchain: ^0.3.2
     langsmith: latest
     next: 13.4.12
@@ -3989,9 +3990,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"langsmith@npm:>=0.2.8 <0.4.0, langsmith@npm:latest":
-  version: 0.3.15
-  resolution: "langsmith@npm:0.3.15"
+"langsmith@latest, langsmith@npm:>=0.2.8 <0.4.0":
+  version: 0.3.16
+  resolution: "langsmith@npm:0.3.16"
   dependencies:
     "@types/uuid": ^10.0.0
     chalk: ^4.1.2
@@ -4005,7 +4006,7 @@ __metadata:
   peerDependenciesMeta:
     openai:
       optional: true
-  checksum: 26732b3a4518f8b348798fd95b6590ea63ac90a3ccdf6a0a85321171f79428349ea72aef107666ebb5cdefa0d8d1c49e0d76383c3be34f9cc1a11e11e9654f3f
+  checksum: 64e9a53671cec3d7b29eba63d544a966c8a82c403e46ef490061e571d65087a6b2cfa899a75ec335bdd034a1f077dd27148c99f838cee89a2d5368078446b879
   languageName: node
   linkType: hard
 
@@ -4694,8 +4695,8 @@ __metadata:
   linkType: hard
 
 "openai@npm:^4.87.3":
-  version: 4.93.0
-  resolution: "openai@npm:4.93.0"
+  version: 4.94.0
+  resolution: "openai@npm:4.94.0"
   dependencies:
     "@types/node": ^18.11.18
     "@types/node-fetch": ^2.6.4
@@ -4714,7 +4715,7 @@ __metadata:
       optional: true
   bin:
     openai: bin/cli
-  checksum: 39fa6635475590c05c5fcb1fd07708c8f23d430dad36037c49fe25020ada0a4a36801e5c443669acd8f947d52005e3b7cf0215ca4b76262007f9b1ea3c916a68
+  checksum: e7f012d24d304f8ab4c68346f03b01c992e981d272df91ebc1543763a822abef4b4a58db0689914e0bcd3e8fa7b5c0efcb93383304784cea587f21fdf264795c
   languageName: node
   linkType: hard
 
@@ -5125,8 +5126,8 @@ __metadata:
   linkType: hard
 
 "protobufjs@npm:^7.2.4":
-  version: 7.4.0
-  resolution: "protobufjs@npm:7.4.0"
+  version: 7.5.0
+  resolution: "protobufjs@npm:7.5.0"
   dependencies:
     "@protobufjs/aspromise": ^1.1.2
     "@protobufjs/base64": ^1.1.2
@@ -5140,7 +5141,7 @@ __metadata:
     "@protobufjs/utf8": ^1.1.0
     "@types/node": ">=13.7.0"
     long: ^5.0.0
-  checksum: ba0e6b60541bbf818bb148e90f5eb68bd99004e29a6034ad9895a381cbd352be8dce5376e47ae21b2e05559f2505b4a5f4a3c8fa62402822c6ab4dcdfb89ffb3
+  checksum: f3eb9c6bbbac1f9b15ae3d0f67072c8f723e4c2e82ee1d7c181a255c6a929dbbfcb1b7a765410984394ffcfb2f8939a6db2c111c2319e1c22949e8b06151ab60
   languageName: node
   linkType: hard
 

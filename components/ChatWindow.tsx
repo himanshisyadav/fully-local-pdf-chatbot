@@ -23,14 +23,14 @@ const modelListItems: Record<ModelProvider, React.JSX.Element> = {
     <li>
       ⚙️
       <span className="ml-2">
-        The default LLM is <code>Mistral-7B</code> run locally by Ollama. You&apos;ll need to install <a target="_blank" href="https://ollama.ai">the Ollama desktop app</a> and run the following commands to give this site access to the locally running model:
+        The default LLM is <code className="inline-flex px-2 py-1 my-2 rounded">Mistral-7B</code> run locally by Ollama. You&apos;ll need to install <a target="_blank" href="https://ollama.ai">the Ollama desktop app</a> and run the following commands to give this site access to the locally running model:
         <br/>
-        <pre className="inline-flex px-2 py-1 my-2 rounded">$ OLLAMA_ORIGINS=http://localhost:30000 OLLAMA_HOST=127.0.0.1:11434 ollama serve
-        </pre>
+        <code className="inline-flex px-2 py-1 my-2 rounded">$ OLLAMA_ORIGINS=http://localhost:30000 OLLAMA_HOST=127.0.0.1:11434 ollama serve
+        </code>
         <br/>
         Then, in another window:
         <br/>
-        <pre className="inline-flex px-2 py-1 my-2 rounded">$ OLLAMA_HOST=127.0.0.1:11434 ollama run mistral</pre>
+        <code className="inline-flex px-2 py-1 my-2 rounded">$ OLLAMA_HOST=127.0.0.1:11434 ollama run mistral</code>
       </span>
     </li>
   ),
@@ -39,14 +39,14 @@ const modelListItems: Record<ModelProvider, React.JSX.Element> = {
       <li>
         ⚙️
         <span className="ml-2">
-        The default LLM is <code>Mistral-7B</code> run locally by Ollama. You&apos;ll need to install <a target="_blank" href="https://ollama.ai">the Ollama desktop app</a> and run the following commands to give this site access to the locally running model:
+        The default LLM is <code className="inline-flex px-2 py-1 my-2 rounded">Mistral-7B</code> run locally by Ollama. You&apos;ll need to install <a target="_blank" href="https://ollama.ai">the Ollama desktop app</a> and run the following commands to give this site access to the locally running model:
         <br/>
-        <pre className="inline-flex px-2 py-1 my-2 rounded">$ OLLAMA_ORIGINS=https://himi-mindbytes-demo-2025.vercel.app OLLAMA_HOST=127.0.0.1:11435 ollama serve
-        </pre>
+        <code className="inline-flex px-2 py-1 my-2 rounded">$ OLLAMA_ORIGINS=https://himi-mindbytes-demo-2025.vercel.app OLLAMA_HOST=127.0.0.1:11435 ollama serve
+        </code>
         <br/>
         Then, in another window:
         <br/>
-        <pre className="inline-flex px-2 py-1 my-2 rounded">$ OLLAMA_HOST=127.0.0.1:11435 ollama pull mistral</pre>
+        <code className="inline-flex px-2 py-1 my-2 rounded">$ OLLAMA_HOST=127.0.0.1:11435 ollama pull mistral</code>
       </span>
       </li>
     </>
@@ -280,11 +280,13 @@ export function ChatWindow(props: {
   const choosePDFComponent = (
     <>
       <MobileWarningOverlay></MobileWarningOverlay>
-      <div className="p-4 md:p-8 rounded bg-[#25252d] w-full max-h-[85%] overflow-hidden flex flex-col">
-        <h1 className="text-3xl md:text-4xl mb-2 ml-auto mr-auto flex justify-center max-h-[36px]">
-          {emoji}<span className="mx-2">{titleTexts[modelProvider]}</span>{emoji}
-        </h1>
-        <div className="p-2 my-4 flex items-center justify-center">
+      <div className="rounded bg-[#f8f9fa] w-full max-h-[85%] overflow-hidden flex flex-col">
+        <div className="rounded header w-full bg-[#800000]">
+          <h1 className="text-3xl md:text-4xl mb-2 ml-auto mr-auto flex justify-center py-4 text-neutral-200">
+            {emoji}<span className="mx-2">{titleTexts[modelProvider]}</span>{emoji}
+          </h1>
+        </div>
+        <div className="p-2 mt-4 mb-1 flex items-center justify-center">
           <div className="inline-flex overflow-hidden border border-gray-200 rounded-lg">
             <label htmlFor="ollama_compute" className="cursor-pointer">
               <input type="radio"
@@ -302,9 +304,13 @@ export function ChatWindow(props: {
                 <span>{emojis["ollama_compute"]} Ollama (RCC Clusters' Compute Nodes)</span>
               </span>
             </label>
+              <span className="relative inline-flex items-center h-full py-2 pr-2 space-x-2 text-sm pl-2 ollama">
+                <span>{emojis["ollama_mac"]} Ollama (Mac)</span>
+              </span>
+            </label>
           </div>
         </div>
-        <ul>
+        <ul className="p-4 md:p-8 pt-0 md:pt-0">
           <li className="text-l">
             🏡
             <span className="ml-2">
@@ -327,7 +333,7 @@ export function ChatWindow(props: {
           <li>
             🗺️
             <span className="ml-2">
-              The default embeddings are <pre className="inline-flex px-2 py-1 my-2 rounded">&quot;all-minilm (22 M parameters)&quot;</pre>. For higher-quality, slower embeddings, switch to <a href="https://ollama.com/search?c=embedding">suitable embedding models </a> in <pre className="inline-flex px-2 py-1 my-2 rounded">app/worker.ts</pre>.
+              The default embeddings are <code className="inline-flex px-2 py-1 my-2 rounded">&quot;all-minilm (22 M parameters)&quot;</code>. For higher-quality, slower embeddings, switch to <a href="https://ollama.com/search?c=embedding">suitable embedding models </a> in <code className="inline-flex px-2 py-1 my-2 rounded">app/worker.ts</code>.
             </span>
           </li>
           <li className="hidden text-l md:block">
@@ -352,9 +358,9 @@ export function ChatWindow(props: {
           </li>
         </ul>
       </div>
-      <form onSubmit={embedPDF} className="mt-4 flex justify-between items-center w-full">
+      <form onSubmit={embedPDF} className="mt-4 flex justify-center items-center w-full">
         <input id="file_input" type="file" accept="pdf" className="text-white" onChange={(e) => e.target.files ? setSelectedPDF(e.target.files[0]) : null}></input>
-        <button type="submit" className="shrink-0 px-8 py-4 bg-sky-600 rounded w-28">
+        <button type="submit" className="shrink-0 px-8 py-4 rounded w-28 main">
           <div role="status" className={`${isLoading ? "" : "hidden"} flex justify-center`}>
             <svg aria-hidden="true" className="w-6 h-6 text-white animate-spin dark:text-white fill-sky-800" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
@@ -402,7 +408,7 @@ export function ChatWindow(props: {
             placeholder={placeholder ?? "What's it like to be a pirate?"}
             onChange={(e) => setInput(e.target.value)}
           />
-          <button type="submit" className="shrink-0 px-8 py-4 bg-sky-600 rounded w-28">
+          <button type="submit" className="shrink-0 px-8 py-4 bg-[#800000] hover:bg-[#a00000] rounded w-28">
             <div role="status" className={`${isLoading ? "" : "hidden"} flex justify-center`}>
               <svg aria-hidden="true" className="w-6 h-6 text-white animate-spin dark:text-white fill-sky-800" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
@@ -418,7 +424,7 @@ export function ChatWindow(props: {
   );
 
   return (
-    <div className={`flex flex-col items-center p-4 md:p-8 rounded grow overflow-hidden ${(readyToChat ? "border" : "")}`}>
+    <div className={`flex flex-col items-center p-4 md:p-8 rounded grow overflow-hidden bg-[#f8f9fa] ${(readyToChat ? "border" : "")}`}>
       <h2 className={`${readyToChat ? "" : "hidden"} text-2xl`}>{emoji} {titleText}</h2>
       {readyToChat
         ? chatInterfaceComponent

@@ -3,8 +3,7 @@
 @tailwind utilities;
 
 body {
-  color: white;
-  background: #800000;
+  background: rgb(233, 236, 239);
 }
 
 body input,
@@ -13,7 +12,7 @@ body textarea {
 }
 
 a {
-  color: #5ba4f8;
+  color: #800000;
 }
 
 a:hover {
@@ -24,18 +23,69 @@ p {
   margin: 8px 0;
 }
 
-code,
-pre {
-  color: #ffa500;
-}
-
-pre {
-  background-color: black;
-  color: #ff1466;
+code {
+  background-color: #777777;
+  color: white;
 }
 
 li {
   padding: 4px;
+}
+
+button[type=submit].main {
+  background-color: #3c763d;
+  color: white;
+}
+
+button[type=submit].main:hover {
+  background-color: #4cae4c;
+}
+
+input[type=file]::file-selector-button {
+  background-color: #800000;
+  color: white;
+
+  padding: 1rem 2rem;
+  border-radius: 0.25rem;
+  border: none;
+
+  cursor: pointer;
+}
+
+input[type=file]::file-selector-button:hover {
+  background-color: #a00000;
+}
+
+input[type=file] {
+  color: black;
+  margin-right: 25px;
+}
+
+.ollama {
+  background-color: #800000;
+  color: white;
+}
+
+footer {
+  position: relative;
+  left:0;
+  bottom:0;
+  right:0;
+  max-height: 15px;
+}
+
+.myfooter {
+  background-color: black;
+  color: white;
+}
+
+.myfooter a {
+  color: #d3d3d3;
+}
+
+img {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 @layer base {

@@ -10,13 +10,15 @@ import { Feedback } from 'langsmith';
 
 export function ChatMessageBubble(props: {
   message: ChatWindowMessage & { responseTime?: number };
+  message: ChatWindowMessage & { responseTime?: number };
   aiEmoji?: React.JSX.Element;
   onRemovePressed?: () => void;
 }) {
   const { role, content, runId, responseTime } = props.message;
+  const { role, content, runId, responseTime } = props.message;
 
   const colorClassName =
-    role === "user" ? "bg-sky-600" : "bg-slate-50 text-black";
+    role === "user" ? "bg-[#800000] text-white" : "bg-slate-500 text-white";
   const alignmentClassName =
     role === "user" ? "ml-auto" : "mr-auto";
   const prefix = role === "user" ? "🧑" : props.aiEmoji;
@@ -93,7 +95,7 @@ export function ChatMessageBubble(props: {
         <div className="whitespace-pre-wrap">
           {/* TODO: Remove. Hacky fix, stop sequences don't seem to work with WebLLM yet. */}
           {content.trim().split("\nInstruct:")[0].split("\nInstruction:")[0]}
-          {formattedResponseTime && <span className="ml-1 text-sm text-gray-500">{formattedResponseTime}</span>}
+          {formattedResponseTime && <span className="ml-1 text-sm text-black">{formattedResponseTime}</span>}
         </div>
         <div className="cursor-pointer opacity-0 hover:opacity-100 relative left-2 bottom-1" onMouseUp={props?.onRemovePressed}>
           ✖️

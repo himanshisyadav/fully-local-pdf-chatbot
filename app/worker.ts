@@ -12,7 +12,7 @@ import { OllamaEmbeddings } from "@langchain/ollama";
 
 import { WebPDFLoader } from "@langchain/community/document_loaders/web/pdf";
 
-import { HuggingFaceTransformersEmbeddings } from "@langchain/community/embeddings/huggingface_transformers";
+// import { HuggingFaceTransformersEmbeddings } from "@langchain/community/embeddings/huggingface_transformers";
 import { VoyVectorStore } from "@langchain/community/vectorstores/voy";
 import { ChatPromptTemplate, PromptTemplate } from "@langchain/core/prompts";
 import { type BaseMessage } from "@langchain/core/messages";
@@ -31,6 +31,7 @@ import { RunnableConfig } from "@langchain/core/runnables";
 import { BaseLLM } from "@langchain/core/language_models/llms";
 
 
+//Deprecated class
 // const embeddings = new HuggingFaceTransformersEmbeddings({
 //   model: "Xenova/all-MiniLM-L6-v2",
 //   // Can use "nomic-ai/nomic-embed-text-v1" for more powerful but slower embeddings
