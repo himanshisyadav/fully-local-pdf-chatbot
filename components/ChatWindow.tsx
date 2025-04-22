@@ -310,7 +310,7 @@ export function ChatWindow(props: {
           <li className="text-l">
             🏡
             <span className="ml-2">
-              Yes, it&apos;s another LLM-powered chat over documents implementation... but this one is entirely {modelProvider === "ollama_compute" ? "local" : "local in your browser"}!
+              Yes, it&apos;s another LLM-powered chat over documents implementation... but this one is entirely {modelProvider === "ollama_compute" ? "local" : "local in your browser"}, running on RCC's GPU nodes with no internet access!
             </span>
           </li>
           <li className="text-l">
@@ -350,6 +350,24 @@ export function ChatWindow(props: {
                 from the GitHub repo
               </a>
               !
+            </span>
+          </li>
+          <li className="text-l">
+            🎇
+            <span className="ml-2">
+            Advantages:
+            <li>
+              * Increased data privacy
+            </li>
+            <li>
+              * Improved security
+            </li>
+            <li>
+              * Reduced reliance on cloud-based services
+            </li>
+            <li>
+              * Customizable for open-source research
+            </li>
             </span>
           </li>
         </ul>
