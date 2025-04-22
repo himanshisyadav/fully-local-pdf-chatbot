@@ -23,14 +23,14 @@ const modelListItems: Record<ModelProvider, React.JSX.Element> = {
     <li>
       ⚙️
       <span className="ml-2">
-        The default LLM is <code className="inline-flex px-2 py-1 my-2 rounded">Mistral-7B</code> run locally by Ollama. You&apos;ll need to install <a target="_blank" href="https://ollama.ai">the Ollama desktop app</a> and run the following commands to give this site access to the locally running model:
+        The default LLM is <code className="inline-flex px-2 py-1 my-2 rounded">Deepseek R1 (distilled)</code> run locally by Ollama. You&apos;ll need to install <a target="_blank" href="https://ollama.ai">the Ollama desktop app</a> and run the following commands to give this site access to the locally running model:
         <br/>
         <code className="inline-flex px-2 py-1 my-2 rounded">$ OLLAMA_ORIGINS=http://localhost:30000 OLLAMA_HOST=127.0.0.1:11434 ollama serve
         </code>
         <br/>
         Then, in another window:
         <br/>
-        <code className="inline-flex px-2 py-1 my-2 rounded">$ OLLAMA_HOST=127.0.0.1:11434 ollama run mistral</code>
+        <code className="inline-flex px-2 py-1 my-2 rounded">$ OLLAMA_HOST=127.0.0.1:11434 ollama run deepseek-r1</code>
       </span>
     </li>
   ),
@@ -39,14 +39,14 @@ const modelListItems: Record<ModelProvider, React.JSX.Element> = {
       <li>
         ⚙️
         <span className="ml-2">
-        The default LLM is <code className="inline-flex px-2 py-1 my-2 rounded">Mistral-7B</code> run locally by Ollama. You&apos;ll need to install <a target="_blank" href="https://ollama.ai">the Ollama desktop app</a> and run the following commands to give this site access to the locally running model:
+        The default LLM is <code className="inline-flex px-2 py-1 my-2 rounded">Deepseek R1 (distilled)</code> run locally by Ollama. You&apos;ll need to install <a target="_blank" href="https://ollama.ai">the Ollama desktop app</a> and run the following commands to give this site access to the locally running model:
         <br/>
         <code className="inline-flex px-2 py-1 my-2 rounded">$ OLLAMA_ORIGINS=https://himi-mindbytes-demo-2025.vercel.app OLLAMA_HOST=127.0.0.1:11435 ollama serve
         </code>
         <br/>
         Then, in another window:
         <br/>
-        <code className="inline-flex px-2 py-1 my-2 rounded">$ OLLAMA_HOST=127.0.0.1:11435 ollama pull mistral</code>
+        <code className="inline-flex px-2 py-1 my-2 rounded">$ OLLAMA_HOST=127.0.0.1:11435 ollama pull deepseek-r1</code>
       </span>
       </li>
     </>
@@ -95,7 +95,8 @@ export function ChatWindow(props: {
           ollama_compute: {
             baseUrl: "http://localhost:11434",
             temperature: 0.3,
-            model: "mistral",
+            // model: "mistral",
+            model : "deepseek-r1",
           },
           midway3_gpu: {
             // See https://github.com/mlc-ai/web-llm/blob/main/src/config.ts for a list of available models
@@ -356,18 +357,18 @@ export function ChatWindow(props: {
             🎇
             <span className="ml-2">
             Advantages:
-            <li>
-              * Increased data privacy
-            </li>
-            <li>
-              * Improved security
-            </li>
-            <li>
-              * Reduced reliance on cloud-based services
-            </li>
-            <li>
-              * Customizable for open-source research
-            </li>
+              <ul>
+                * Increased data privacy
+              </ul>
+              <ul>
+                * Improved security
+              </ul>
+              <ul>
+                * Reduced reliance on cloud-based services
+              </ul>
+              <ul>
+                * Customizable for open-source research
+              </ul>
             </span>
           </li>
         </ul>
