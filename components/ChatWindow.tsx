@@ -353,23 +353,15 @@ export function ChatWindow(props: {
               !
             </span>
           </li>
-          <li className="text-l">
-            🎇
-            <span className="ml-2">
-            Advantages:
-              <ul>
-                * Increased data privacy
-              </ul>
-              <ul>
-                * Improved security
-              </ul>
-              <ul>
-                * Reduced reliance on cloud-based services
-              </ul>
-              <ul>
-                * Customizable for open-source research
-              </ul>
-            </span>
+          <li className="text-l"> {/* Added flex and alignment classes */}
+            🧪  
+            <span className="ml-2">Advantages:</span> {/* Moved "Advantages:" to the left of the list */}
+            <ul className="list-disc pl-10"> {/* Added default list styling */}
+              <li>Increased data privacy</li>
+              <li>Improved security</li>
+              <li>Reduced reliance on cloud-based services</li>
+              <li>Customizable for open-source research</li>
+            </ul>
           </li>
         </ul>
       </div>
