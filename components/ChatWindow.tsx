@@ -14,7 +14,7 @@ import { MobileWarningOverlay } from './MobileWarningOverlay';
 type ModelProvider = "ollama_mac" | "midway3_gpu";
 
 const titleTexts: Record<ModelProvider, string> = {
-  ollama_mac: "Fully Local Chat Over Documents on Mac CPU",
+  ollama_mac: "Fully Local Chat Over Documents on Local Machine (CPU)",
   midway3_gpu: "Fully Local Chat Over Documents on Midway3 GPUs",
 };
 
@@ -23,14 +23,14 @@ const modelListItems: Record<ModelProvider, React.JSX.Element> = {
     <li>
       ⚙️
       <span className="ml-2">
-        The default LLM is <code className="inline-flex px-2 py-1 my-2 rounded">Mistral-7B</code> run locally by Ollama. You&apos;ll need to install <a target="_blank" href="https://ollama.ai">the Ollama desktop app</a> and run the following commands to give this site access to the locally running model:
+        The default LLM is <code className="inline-flex px-2 py-1 my-2 rounded">Deepseek R1 (distilled)</code> run locally by Ollama. You&apos;ll need to install <a target="_blank" href="https://ollama.ai">the Ollama desktop app</a> and run the following commands to give this site access to the locally running model:
         <br/>
         <code className="inline-flex px-2 py-1 my-2 rounded">$ OLLAMA_ORIGINS=http://localhost:30000 OLLAMA_HOST=127.0.0.1:11434 ollama serve
         </code>
         <br/>
         Then, in another window:
         <br/>
-        <code className="inline-flex px-2 py-1 my-2 rounded">$ OLLAMA_HOST=127.0.0.1:11434 ollama run mistral</code>
+        <code className="inline-flex px-2 py-1 my-2 rounded">$ OLLAMA_HOST=127.0.0.1:11434 ollama run deepseek-r1</code>
       </span>
     </li>
   ),
@@ -39,14 +39,14 @@ const modelListItems: Record<ModelProvider, React.JSX.Element> = {
       <li>
         ⚙️
         <span className="ml-2">
-        The default LLM is <code className="inline-flex px-2 py-1 my-2 rounded">Mistral-7B</code> run locally by Ollama. You&apos;ll need to install <a target="_blank" href="https://ollama.ai">the Ollama desktop app</a> and run the following commands to give this site access to the locally running model:
+        The default LLM is <code className="inline-flex px-2 py-1 my-2 rounded">Deepseek R1 (distilled)</code> run locally by Ollama. You&apos;ll need to install <a target="_blank" href="https://ollama.ai">the Ollama desktop app</a> and run the following commands to give this site access to the locally running model:
         <br/>
         <code className="inline-flex px-2 py-1 my-2 rounded">$ OLLAMA_ORIGINS=https://himi-mindbytes-demo-2025.vercel.app OLLAMA_HOST=127.0.0.1:11435 ollama serve
         </code>
         <br/>
         Then, in another window:
         <br/>
-        <code className="inline-flex px-2 py-1 my-2 rounded">$ OLLAMA_HOST=127.0.0.1:11435 ollama pull mistral</code>
+        <code className="inline-flex px-2 py-1 my-2 rounded">$ OLLAMA_HOST=127.0.0.1:11435 ollama pull deepseek-r1</code>
       </span>
       </li>
     </>
@@ -95,7 +95,8 @@ export function ChatWindow(props: {
           ollama_mac: {
             baseUrl: "http://localhost:11434",
             temperature: 0.3,
-            model: "mistral",
+            // model: "mistral",
+            model: "deepseek-r1:1.5b"
           },
           midway3_gpu: {
             // See https://github.com/mlc-ai/web-llm/blob/main/src/config.ts for a list of available models
@@ -301,7 +302,7 @@ export function ChatWindow(props: {
                   setModelProvider("ollama_mac");
                 }} />
               <span className="relative inline-flex items-center h-full py-2 pr-2 space-x-2 text-sm pl-2 ollama">
-                <span>{emojis["ollama_mac"]} Ollama (Mac)</span>
+                <span>{emojis["ollama_mac"]} Ollama (CPU)</span>
               </span>
             </label>
           </div>
@@ -351,6 +352,16 @@ export function ChatWindow(props: {
               </a>
               !
             </span>
+          </li>
+          <li className="text-l"> {/* Added flex and alignment classes */}
+            🧪  
+            <span className="ml-2">Advantages:</span> {/* Moved "Advantages:" to the left of the list */}
+            <ul className="list-disc pl-10"> {/* Added default list styling */}
+              <li>Increased data privacy</li>
+              <li>Improved security</li>
+              <li>Reduced reliance on cloud-based services</li>
+              <li>Customizable for open-source research</li>
+            </ul>
           </li>
         </ul>
       </div>
@@ -404,7 +415,7 @@ export function ChatWindow(props: {
             placeholder={placeholder ?? "What's it like to be a pirate?"}
             onChange={(e) => setInput(e.target.value)}
           />
-          <button type="submit" className="shrink-0 px-8 py-4 bg-[#800000] hover:bg-[#a00000] rounded w-28">
+          <button type="submit" className="shrink-0 px-8 py-4 bg-[#800000] hover:bg-[#a00000] rounded w-28 text-white">
             <div role="status" className={`${isLoading ? "" : "hidden"} flex justify-center`}>
               <svg aria-hidden="true" className="w-6 h-6 text-white animate-spin dark:text-white fill-sky-800" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
