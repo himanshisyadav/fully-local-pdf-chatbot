@@ -96,7 +96,7 @@ export function ChatWindow(props: {
             baseUrl: "http://localhost:11434",
             temperature: 0.3,
             // model: "mistral",
-            model: "deepseek-r1:1.5b"
+            model: "mistral"
           },
           midway3_gpu: {
             // See https://github.com/mlc-ai/web-llm/blob/main/src/config.ts for a list of available models
