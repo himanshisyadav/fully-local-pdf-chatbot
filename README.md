@@ -1,4 +1,6 @@
-# 🏠 Fully Local Chat Over Documents on Midway3 Compute Nodes
+# 🏠 Fully Local Chat Over Documents on RCC Compute Nodes
+
+![](/public/images/midway3_frontpage.png)
 
 It's a Next.js app that reads the content of an uploaded PDF, chunks it, adds it to a vector store, and
 performs RAG, all client-side. You can even run Ollama without internet access which is the case on Midway3 compute nodes. Run local! 
